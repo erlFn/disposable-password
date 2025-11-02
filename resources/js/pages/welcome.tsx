@@ -1,7 +1,11 @@
+import ParentDiv from "@/layouts/parent-div";
+
 export default function Welcome() {
     return (
-        <p>
-            New Welcome Page
-        </p>
+        <ParentDiv>
+            <p>
+                New welcome page
+            </p>
+        </ParentDiv>
     );
 }
