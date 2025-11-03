@@ -44,7 +44,33 @@ class DashboardController extends Controller
         // $this->authService->forgetUserCache($token); -> uncomment on sign out refresh
 
         return Inertia::render('dashboard', [
+            'token' => $token,
             'data' => $data
         ]);
-    }    
+    }
+
+    public function destroy(Request $request, string $token) 
+    {
+        // Check user cache first
+        $status = $this->authService->checkUserCache($token);
+
+        // Check if user cache is false
+        if (!$status) {
+            // If false redirect to welcome page
+            return redirect()->route('welcome')->with(
+                'info', 'Dashboard URL has expired. Please send a request again'
+            );
+        }
+        
+        // Forget user cache
+        $this->authService->forgetUserCache($token);
+
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+
+        // Redirect to welcome page
+        return redirect()->route('welcome')->with(
+            'info', 'Successfully signed out'
+        );
+    }
 }

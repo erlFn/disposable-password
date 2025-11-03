@@ -11,3 +11,4 @@ Route::get('/verification/{token}', [AuthController::class, 'verification'])->na
 Route::post('/verify/{token}', [AuthController::class, 'verify'])->name('auth.verify');
 
 Route::get('/dashboard/{token}', [DashboardController::class, 'index'])->name('dashboard');
+Route::post('/dashboard/{token}', [DashboardController::class, 'destroy'])->name('dashboard.logout');

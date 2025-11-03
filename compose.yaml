@@ -48,6 +48,15 @@ services:
                 - '${DB_USERNAME}'
             retries: 3
             timeout: 5s
+    mailpit:
+        image: axllent/mailpit:latest
+        ports:
+            - "8025:8025"
+            - "1025:1025"
+        environment:
+            - MP_MAX_MESSAGES=5000
+        networks:
+            - sail
 networks:
     sail:
         driver: bridge
